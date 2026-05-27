@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mulia Sujiastuti Wahyono — Software Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0d0d0f;
+    --bg2: #141416;
+    --bg3: #1a1a1e;
+    --border: rgba(255,255,255,0.07);
+    --border2: rgba(255,255,255,0.12);
+    --text: #f0ede8;
+    --muted: #7a7870;
+    --muted2: #a09e99;
+    --accent: #c8b89a;
+    --accent2: #e8d5b7;
+    --go: #00ADD8;
+    --php: #777BB4;
+    --js: #F7DF1E;
+    --ts: #3178C6;
+    --laravel: #FF2D20;
+    --react: #61DAFB;
+    --next: #f0ede8;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  ::selection { background: var(--accent); color: var(--bg); }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.25rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    background: rgba(13,13,15,0.85);
+    backdrop-filter: blur(12px);
+  }
+
+  .nav-logo {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 13px;
+    color: var(--muted2);
+    text-decoration: none;
+    letter-spacing: 0.03em;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--text); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 8rem 2rem 4rem;
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .hero-content { max-width: 680px; }
+
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--accent);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 32px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  .hero-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    line-height: 1.05;
+    color: var(--text);
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.02em;
+  }
+
+  .hero-name em {
+    font-style: italic;
+    color: var(--accent2);
+  }
+
+  .hero-desc {
+    font-size: 1.05rem;
+    color: var(--muted2);
+    max-width: 520px;
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-links {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.4rem;
+    border-radius: 2px;
+    font-size: 13px;
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    transition: all 0.2s;
+    cursor: pointer;
+    border: none;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: var(--bg);
+  }
+  .btn-primary:hover { background: var(--accent2); }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--muted2);
+    border: 1px solid var(--border2);
+  }
+  .btn-outline:hover { color: var(--text); border-color: var(--muted2); }
+
+  .scroll-indicator {
+    position: absolute;
+    bottom: 3rem;
+    left: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, transparent, var(--muted));
+  }
+
+  /* SECTIONS */
+  section {
+    padding: 6rem 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+    max-width: 60px;
+  }
+
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    color: var(--text);
+    margin-bottom: 3rem;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+
+  /* ABOUT */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .about-text p {
+    color: var(--muted2);
+    line-height: 1.85;
+    margin-bottom: 1.25rem;
+    font-size: 0.95rem;
+  }
+
+  .about-text p strong {
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  .about-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .stat-item {
+    padding: 1.25rem 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    background: var(--bg2);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .stat-item::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px;
+    height: 100%;
+    background: var(--accent);
+  }
+
+  .stat-number {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2rem;
+    color: var(--accent2);
+    line-height: 1;
+    margin-bottom: 0.25rem;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.05em;
+  }
+
+  /* SKILLS */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .skill-category {
+    padding: 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    background: var(--bg2);
+  }
+
+  .skill-category-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .skill-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    padding: 0.25rem 0.65rem;
+    border-radius: 2px;
+    background: var(--bg3);
+    color: var(--muted2);
+    border: 1px solid var(--border);
+    transition: all 0.2s;
+  }
+
+  .skill-tag:hover { color: var(--text); border-color: var(--border2); }
+
+  .skill-tag.go { color: var(--go); border-color: rgba(0,173,216,0.25); background: rgba(0,173,216,0.05); }
+  .skill-tag.php { color: var(--php); border-color: rgba(119,123,180,0.25); background: rgba(119,123,180,0.05); }
+  .skill-tag.js { color: #c9b800; border-color: rgba(247,223,30,0.2); background: rgba(247,223,30,0.04); }
+  .skill-tag.ts { color: #5a9fd4; border-color: rgba(49,120,198,0.25); background: rgba(49,120,198,0.05); }
+  .skill-tag.react { color: #4fbfd8; border-color: rgba(97,219,251,0.2); background: rgba(97,219,251,0.04); }
+  .skill-tag.laravel { color: #ff6b5b; border-color: rgba(255,45,32,0.2); background: rgba(255,45,32,0.04); }
+
+  /* PROJECTS */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .project-card {
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    background: var(--bg2);
+    overflow: hidden;
+    transition: border-color 0.25s, transform 0.25s;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .project-card:hover {
+    border-color: var(--border2);
+    transform: translateY(-3px);
+  }
+
+  .project-card.featured {
+    border-color: rgba(200,184,154,0.2);
+    grid-column: span 2;
+  }
+
+  .project-card.featured:hover {
+    border-color: rgba(200,184,154,0.4);
+  }
+
+  .project-header {
+    padding: 1.5rem 1.5rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .project-number {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+  }
+
+  .project-links {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 0.3rem 0.6rem;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    transition: all 0.2s;
+  }
+
+  .project-link:hover { color: var(--accent); border-color: var(--accent); }
+
+  .project-body {
+    padding: 1rem 1.5rem 1.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .project-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.35rem;
+    color: var(--text);
+    margin-bottom: 0.6rem;
+    letter-spacing: -0.01em;
+    line-height: 1.25;
+  }
+
+  .project-desc {
+    font-size: 0.875rem;
+    color: var(--muted2);
+    line-height: 1.75;
+    flex: 1;
+    margin-bottom: 1.25rem;
+  }
+
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: auto;
+  }
+
+  .project-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    padding: 0.2rem 0.55rem;
+    border-radius: 2px;
+    background: var(--bg3);
+    color: var(--muted);
+    border: 1px solid var(--border);
+  }
+
+  .project-tag.highlight {
+    color: var(--accent);
+    border-color: rgba(200,184,154,0.25);
+    background: rgba(200,184,154,0.05);
+  }
+
+  /* EXPERIENCE */
+  .exp-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border-left: 1px solid var(--border);
+    padding-left: 2rem;
+    margin-left: 0.5rem;
+  }
+
+  .exp-item {
+    position: relative;
+    padding-bottom: 2.5rem;
+  }
+
+  .exp-item::before {
+    content: '';
+    position: absolute;
+    left: -2.375rem;
+    top: 0.35rem;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--bg);
+  }
+
+  .exp-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.35rem;
+  }
+
+  .exp-company {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem;
+    color: var(--text);
+  }
+
+  .exp-period {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+
+  .exp-role {
+    font-size: 13px;
+    color: var(--accent);
+    font-family: 'DM Mono', monospace;
+    margin-bottom: 0.75rem;
+  }
+
+  .exp-desc {
+    font-size: 0.875rem;
+    color: var(--muted2);
+    line-height: 1.8;
+  }
+
+  .exp-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.75rem;
+  }
+
+  .tech-pill {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    padding: 0.15rem 0.5rem;
+    border-radius: 2px;
+    background: var(--bg3);
+    color: var(--muted);
+    border: 1px solid var(--border);
+    letter-spacing: 0.04em;
+  }
+
+  /* CONTACT */
+  .contact-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .contact-text p {
+    font-size: 0.95rem;
+    color: var(--muted2);
+    line-height: 1.85;
+    margin-bottom: 1.25rem;
+  }
+
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .contact-link-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    background: var(--bg2);
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .contact-link-item:hover {
+    border-color: var(--border2);
+    background: var(--bg3);
+  }
+
+  .contact-link-icon {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    width: 24px;
+    letter-spacing: 0;
+  }
+
+  .contact-link-label {
+    font-size: 13px;
+    color: var(--muted2);
+    font-family: 'DM Mono', monospace;
+  }
+
+  .contact-link-item:hover .contact-link-label { color: var(--text); }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem;
+    text-align: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+
+  /* DIVIDER */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  /* ANIMATIONS */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 700px) {
+    .about-grid, .contact-inner { grid-template-columns: 1fr; gap: 2rem; }
+    .project-card.featured { grid-column: span 1; }
+    .projects-grid { grid-template-columns: 1fr; }
+    nav { padding: 1rem 1.25rem; }
+    .nav-links { gap: 1.25rem; }
+    section { padding: 4rem 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">msw.dev</a>
+  <ul class="nav-links">
+    <li><a href="#about">about</a></li>
+    <li><a href="#skills">skills</a></li>
+    <li><a href="#projects">projects</a></li>
+    <li><a href="#experience">experience</a></li>
+    <li><a href="#contact">contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-content fade-up visible">
+    <div class="hero-eyebrow">Software Developer</div>
+    <h1 class="hero-name">Mulia<br><em>Sujiastuti</em><br>Wahyono</h1>
+    <p class="hero-desc">
+      Building robust backend systems and clean interfaces. Currently crafting software at BRI — passionate about Go, clean architecture, and shipping things that work.
+    </p>
+    <div class="hero-links">
+      <a href="#projects" class="btn btn-primary">View Projects</a>
+      <a href="https://github.com/gummymule" target="_blank" class="btn btn-outline">GitHub</a>
+      <a href="https://linkedin.com/in/mulia-wahyono" target="_blank" class="btn btn-outline">LinkedIn</a>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">01 — about</div>
+  <h2 class="section-title">A developer from<br><em style="font-family:'DM Serif Display',serif; font-style:italic; color:var(--accent2);">Bandung, Indonesia</em></h2>
+  <div class="about-grid fade-up">
+    <div class="about-text">
+      <p>
+        Physics graduate from <strong>Institut Teknologi Bandung</strong> who found a love for software engineering. I started with computational physics (MATLAB, Python, C++) and gradually moved into full-stack web development.
+      </p>
+      <p>
+        Currently working as a <strong>Software Developer at PT. Bank Rakyat Indonesia</strong>, where I develop and maintain the BRISPOT web application — handling everything from frontend UI with Next.js to backend services in Go.
+      </p>
+      <p>
+        I'm actively transitioning deeper into <strong>backend development</strong>, focusing on Go, clean architecture, and building scalable REST APIs. I enjoy the clarity of well-structured code and the satisfaction of systems that just work.
+      </p>
+    </div>
+    <div class="about-stats">
+      <div class="stat-item">
+        <div class="stat-number">2+</div>
+        <div class="stat-label">years of professional experience</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">3</div>
+        <div class="stat-label">companies worked at</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">ITB</div>
+        <div class="stat-label">B.Sc. Physics — GPA 3.25</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">02 — skills</div>
+  <h2 class="section-title">Technologies<br>I work with</h2>
+  <div class="skills-grid fade-up">
+    <div class="skill-category">
+      <div class="skill-category-title">Backend</div>
+      <div class="skill-tags">
+        <span class="skill-tag go">Go</span>
+        <span class="skill-tag php">PHP</span>
+        <span class="skill-tag laravel">Laravel</span>
+        <span class="skill-tag">.NET / C#</span>
+        <span class="skill-tag">REST API</span>
+        <span class="skill-tag">Clean Architecture</span>
+        <span class="skill-tag">JWT Auth</span>
+      </div>
+    </div>
+    <div class="skill-category">
+      <div class="skill-category-title">Frontend</div>
+      <div class="skill-tags">
+        <span class="skill-tag react">React.js</span>
+        <span class="skill-tag react">Next.js</span>
+        <span class="skill-tag react">React Native</span>
+        <span class="skill-tag react">Vue.js</span>
+        <span class="skill-tag ts">TypeScript</span>
+        <span class="skill-tag js">JavaScript</span>
+        <span class="skill-tag">Tailwind CSS</span>
+      </div>
+    </div>
+    <div class="skill-category">
+      <div class="skill-category-title">Database & Tools</div>
+      <div class="skill-tags">
+        <span class="skill-tag">PostgreSQL</span>
+        <span class="skill-tag">MySQL</span>
+        <span class="skill-tag">SQL</span>
+        <span class="skill-tag">Git</span>
+        <span class="skill-tag">Docker</span>
+        <span class="skill-tag">CI/CD</span>
+        <span class="skill-tag">Jira</span>
+        <span class="skill-tag">Swagger</span>
+      </div>
+    </div>
+    <div class="skill-category">
+      <div class="skill-category-title">Also familiar with</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">C++</span>
+        <span class="skill-tag">MATLAB</span>
+        <span class="skill-tag">React Query</span>
+        <span class="skill-tag">React Hook Form</span>
+        <span class="skill-tag">Bitbucket</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">03 — projects</div>
+  <h2 class="section-title">Things I've<br>built</h2>
+  <div class="projects-grid fade-up">
+
+    <!-- Task Manager — Featured -->
+    <div class="project-card featured">
+      <div class="project-header">
+        <span class="project-number">01 — featured</span>
+        <div class="project-links">
+          <a href="https://github.com/gummymule/task-manager" target="_blank" class="project-link">Backend ↗</a>
+          <a href="https://github.com/gummymule/task-manager-web" target="_blank" class="project-link">Frontend ↗</a>
+        </div>
+      </div>
+      <div class="project-body">
+        <h3 class="project-title">Task Manager — Kanban Board</h3>
+        <p class="project-desc">
+          A full-stack Kanban board application with JWT authentication, multiple boards, and drag-and-drop task management. Backend built with Go following Clean Architecture principles, featuring layered separation (domain → repository → usecase → handler), unit testing with 75% coverage, and Swagger API documentation. Frontend built with Next.js, TypeScript, TanStack Query, and shadcn/ui.
+        </p>
+        <div class="project-tags">
+          <span class="project-tag highlight">Go</span>
+          <span class="project-tag highlight">Clean Architecture</span>
+          <span class="project-tag highlight">Next.js</span>
+          <span class="project-tag highlight">TypeScript</span>
+          <span class="project-tag">PostgreSQL</span>
+          <span class="project-tag">JWT</span>
+          <span class="project-tag">TanStack Query</span>
+          <span class="project-tag">Swagger</span>
+          <span class="project-tag">Docker</span>
+          <span class="project-tag">dnd-kit</span>
+          <span class="project-tag">Unit Testing</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ERP Project -->
+    <div class="project-card">
+      <div class="project-header">
+        <span class="project-number">02</span>
+        <div class="project-links">
+          <a href="https://github.com/gummymule/erp-project-with-go" target="_blank" class="project-link">GitHub ↗</a>
+        </div>
+      </div>
+      <div class="project-body">
+        <h3 class="project-title">ERP System with Go</h3>
+        <p class="project-desc">
+          An Enterprise Resource Planning system built with Go, featuring modular architecture for handling business workflows. Includes handlers, repositories, middleware, and database layers following clean separation of concerns.
+        </p>
+        <div class="project-tags">
+          <span class="project-tag highlight">Go</span>
+          <span class="project-tag">SQLite</span>
+          <span class="project-tag">Docker</span>
+          <span class="project-tag">REST API</span>
+          <span class="project-tag">Middleware</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Note Taking App -->
+    <div class="project-card">
+      <div class="project-header">
+        <span class="project-number">03</span>
+        <div class="project-links">
+          <a href="https://github.com/gummymule/note-taking-app-frontend" target="_blank" class="project-link">Frontend ↗</a>
+          <a href="https://github.com/gummymule/note-taking-app-backend" target="_blank" class="project-link">Backend ↗</a>
+        </div>
+      </div>
+      <div class="project-body">
+        <h3 class="project-title">Note Taking App</h3>
+        <p class="project-desc">
+          A full-stack note taking application with a separate frontend and backend repository. Clean API-driven architecture with user authentication and CRUD operations for notes.
+        </p>
+        <div class="project-tags">
+          <span class="project-tag highlight">Go</span>
+          <span class="project-tag highlight">Next.js</span>
+          <span class="project-tag">TypeScript</span>
+          <span class="project-tag">REST API</span>
+          <span class="project-tag">PostgreSQL</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Medium Clone -->
+    <div class="project-card">
+      <div class="project-header">
+        <span class="project-number">04</span>
+        <div class="project-links">
+          <a href="https://github.com/gummymule/medium-clone" target="_blank" class="project-link">GitHub ↗</a>
+        </div>
+      </div>
+      <div class="project-body">
+        <h3 class="project-title">Medium Clone</h3>
+        <p class="project-desc">
+          A full-featured Medium.com clone built with Laravel. Replicates key features including article creation, category filtering, user authentication with Laravel Breeze, and a clean UI with Tailwind CSS.
+        </p>
+        <div class="project-tags">
+          <span class="project-tag highlight">Laravel</span>
+          <span class="project-tag highlight">PHP</span>
+          <span class="project-tag">MySQL</span>
+          <span class="project-tag">Tailwind CSS</span>
+          <span class="project-tag">Blade</span>
+          <span class="project-tag">Docker</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-label">04 — experience</div>
+  <h2 class="section-title">Where I've<br>worked</h2>
+  <div class="exp-list fade-up">
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <span class="exp-company">PT. Bank Rakyat Indonesia</span>
+        <span class="exp-period">Feb 2024 — Present</span>
+      </div>
+      <div class="exp-role">Software Developer</div>
+      <p class="exp-desc">
+        Developing and maintaining the BRISPOT web application for corporate and retail segments. Implementing UI form designs using react-hook-form, integrating API mutations with react-query, and ensuring responsiveness across devices. Tracing and analyzing loan credit data using SQL, debugging and resolving issues to improve performance.
+      </p>
+      <div class="exp-tech">
+        <span class="tech-pill">Next.js</span>
+        <span class="tech-pill">JavaScript</span>
+        <span class="tech-pill">Go</span>
+        <span class="tech-pill">Laravel</span>
+        <span class="tech-pill">PHP</span>
+        <span class="tech-pill">SQL</span>
+        <span class="tech-pill">Git</span>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <span class="exp-company">BLKP Group</span>
+        <span class="exp-period">Aug 2023 — Feb 2024</span>
+      </div>
+      <div class="exp-role">Full Stack Developer</div>
+      <p class="exp-desc">
+        Created and maintained database schemas ensuring data integrity for the Jasper ERP system. Conducted thorough testing, identifying and fixing bugs and performance issues to ensure a reliable user experience.
+      </p>
+      <div class="exp-tech">
+        <span class="tech-pill">Vue.js</span>
+        <span class="tech-pill">JavaScript</span>
+        <span class="tech-pill">PHP</span>
+        <span class="tech-pill">Laravel</span>
+        <span class="tech-pill">MySQL</span>
+        <span class="tech-pill">Git</span>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <span class="exp-company">Wistkey</span>
+        <span class="exp-period">Mar 2023 — Aug 2023</span>
+      </div>
+      <div class="exp-role">Software Developer</div>
+      <p class="exp-desc">
+        Improved a company profile website for a sports foundation in Hong Kong (Inspiring HK), optimizing for better UX. Enhanced a career portal for a sports coaching company, making navigation more intuitive.
+      </p>
+      <div class="exp-tech">
+        <span class="tech-pill">React.js</span>
+        <span class="tech-pill">React Native</span>
+        <span class="tech-pill">Vue.js</span>
+        <span class="tech-pill">JavaScript</span>
+        <span class="tech-pill">HTML/CSS</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">05 — contact</div>
+  <h2 class="section-title">Let's work<br><em style="font-family:'DM Serif Display',serif; font-style:italic; color:var(--accent2);">together</em></h2>
+  <div class="contact-inner fade-up">
+    <div class="contact-text">
+      <p>
+        I'm currently open to new backend engineering opportunities — especially roles involving Go, distributed systems, or fintech.
+      </p>
+      <p>
+        Whether you want to talk about a project, a job opportunity, or just say hi — my inbox is always open.
+      </p>
+      <a href="mailto:muliasujiastuti@gmail.com" class="btn btn-primary" style="margin-top: 0.5rem;">
+        Send an email
+      </a>
+    </div>
+    <div class="contact-links">
+      <a href="mailto:muliasujiastuti@gmail.com" class="contact-link-item">
+        <span class="contact-link-icon">@</span>
+        <span class="contact-link-label">muliasujiastuti@gmail.com</span>
+      </a>
+      <a href="https://github.com/gummymule" target="_blank" class="contact-link-item">
+        <span class="contact-link-icon">gh</span>
+        <span class="contact-link-label">github.com/gummymule</span>
+      </a>
+      <a href="https://linkedin.com/in/mulia-wahyono" target="_blank" class="contact-link-item">
+        <span class="contact-link-icon">in</span>
+        <span class="contact-link-label">linkedin.com/in/mulia-wahyono</span>
+      </a>
+      <a href="tel:+6289522874179" class="contact-link-item">
+        <span class="contact-link-icon">☎</span>
+        <span class="contact-link-label">+62 895 2287 4179</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>designed & built by Mulia Sujiastuti Wahyono — 2024</p>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
