@@ -71,14 +71,18 @@ Full-stack Kanban board application built with:
 - JWT Authentication
 - Docker
 
+### Reading List — Personal Book Tracker
+Personal book tracking app with shelves, progress tracking, yearly reading goal, search, and sorting. Built with:
+- Go (net/http) with SQLite persistence
+- JWT sessions in httpOnly cookies, bcrypt password hashing
+- Per-user data scoping
+- Next.js, TypeScript, TanStack Query, React Hook Form, shadcn/ui
+
 ### ERP System with Go
 Enterprise Resource Planning system using Go with modular architecture.
 
 ### Note Taking App
 Full-stack notes application with separate frontend and backend repositories.
-
-### Medium Clone
-Medium-inspired blogging platform built using Laravel and Tailwind CSS.
 
 ---
 
@@ -87,4 +91,5 @@ Medium-inspired blogging platform built using Laravel and Tailwind CSS.
 ### Clone Repository
 
 ```bash
-git clone https://github.com/gummymule/portfoilio-website-mulia.git
+git clone https://github.com/gummymule/portfolio-website-mulia.git
+```
